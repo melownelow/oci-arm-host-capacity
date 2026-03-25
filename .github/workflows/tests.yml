@@ -25,7 +25,8 @@ jobs:
           cat << 'KEYEOF' > ./oci_api_key.pem
           ${{ secrets.OCI_PRIVATE_KEY }}
           KEYEOF
-          
+          chmod 600 ./oci_api_key.pem
+
           cat << ENVEOF > .env
           OCI_REGION=${{ secrets.OCI_REGION }}
           OCI_TENANCY_ID=${{ secrets.OCI_TENANCY_ID }}
@@ -38,6 +39,7 @@ jobs:
           OCI_SHAPE=VM.Standard.A1.Flex
           OCI_OCPU=4
           OCI_MEMORY_IN_GBS=24
+          OCI_SSH_PUBLIC_KEY=${{ secrets.OCI_SSH_PUBLIC_KEY }}
           ENVEOF
 
       - name: Run Oracle Macro
